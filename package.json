@@ -1,0 +1,45 @@
+{
+  "name": "family-tree",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "generate:api": "openapi-generator-cli generate -i ./swagger.json -o ./src/api/generated -g typescript-axios"
+  },
+  "dependencies": {
+    "@heroicons/react": "^2.2.0",
+    "@reduxjs/toolkit": "^2.7.0",
+    "@tailwindcss/vite": "^4.0.15",
+    "@tanstack/react-query": "^5.75.7",
+    "@xyflow/react": "^12.6.0",
+    "axios": "^1.8.4",
+    "elkjs": "^0.10.0",
+    "framer-motion": "^12.9.4",
+    "prop-types": "^15.8.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-redux": "^9.2.0",
+    "redux-undo": "^1.1.0",
+    "styled-components": "^6.1.16",
+    "tailwindcss": "^4.0.15"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.21.0",
+    "@openapitools/openapi-generator-cli": "^2.18.4",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "@vitejs/plugin-react-swc": "^3.8.0",
+    "daisyui": "^5.0.35",
+    "eslint": "^9.21.0",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "eslint-plugin-react-refresh": "^0.4.19",
+    "globals": "^15.15.0",
+    "typescript": "~5.7.2",
+    "typescript-eslint": "^8.24.1",
+    "vite": "^6.2.0"
+  }
+}
