@@ -1,298 +1,629 @@
 {
-    "openapi": "3.0.4",
-    "info": {
-      "title": "FamilyTree",
-      "version": "1.0"
-    },
-    "paths": {
-      "/api/FamilyTree": {
-        "get": {
-          "tags": [
-            "FamilyTree"
-          ],
-          "responses": {
-            "200": {
-              "description": "OK"
-            }
-          }
-        }
-      },
-      "/api/File/UploadGed": {
-        "post": {
-          "tags": [
-            "File"
-          ],
-          "requestBody": {
-            "content": {
-              "multipart/form-data": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "formFile": {
-                      "type": "string",
-                      "format": "binary"
-                    }
-                  }
-                },
-                "encoding": {
-                  "formFile": {
-                    "style": "form"
-                  }
-                }
-              }
+  "openapi": "3.0.4",
+  "info": {
+    "title": "FamilyTree",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/FamilyTree/GetFamilyTree": {
+      "get": {
+        "tags": [
+          "FamilyTree"
+        ],
+        "parameters": [
+          {
+            "name": "dataset",
+            "in": "query",
+            "schema": {
+              "type": "string"
             }
           },
-          "responses": {
-            "200": {
-              "description": "OK"
+          {
+            "name": "family",
+            "in": "query",
+            "schema": {
+              "type": "string"
             }
           }
-        }
-      },
-      "/api/Person/AddPerson": {
-        "post": {
-          "tags": [
-            "Person"
-          ],
-          "requestBody": {
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
             "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/FamilyTreeDto"
+                }
+              },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CreatePersonDto"
+                  "$ref": "#/components/schemas/FamilyTreeDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CreatePersonDto"
-                }
-              },
-              "application/*+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CreatePersonDto"
+                  "$ref": "#/components/schemas/FamilyTreeDto"
                 }
               }
-            }
-          },
-          "responses": {
-            "200": {
-              "description": "OK"
-            }
-          }
-        }
-      },
-      "/api/Person/UpdatePerson/personId:int": {
-        "put": {
-          "tags": [
-            "Person"
-          ],
-          "parameters": [
-            {
-              "name": "personId",
-              "in": "query",
-              "schema": {
-                "type": "integer",
-                "format": "int32"
-              }
-            }
-          ],
-          "requestBody": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UpdatePersonDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UpdatePersonDto"
-                }
-              },
-              "application/*+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UpdatePersonDto"
-                }
-              }
-            }
-          },
-          "responses": {
-            "200": {
-              "description": "OK"
-            }
-          }
-        }
-      },
-      "/api/Person/DeletePerson/personId:int": {
-        "delete": {
-          "tags": [
-            "Person"
-          ],
-          "parameters": [
-            {
-              "name": "personId",
-              "in": "query",
-              "schema": {
-                "type": "integer",
-                "format": "int32"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "OK"
-            }
-          }
-        }
-      },
-      "/api/Person/GetPerson/personId:int": {
-        "get": {
-          "tags": [
-            "Person"
-          ],
-          "parameters": [
-            {
-              "name": "personId",
-              "in": "query",
-              "schema": {
-                "type": "integer",
-                "format": "int32"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "OK"
-            }
-          }
-        }
-      },
-      "/api/Person/AddChildrenConnection/father/{fatherId}/mother/{motherId}/child/{childId}": {
-        "post": {
-          "tags": [
-            "Person"
-          ],
-          "parameters": [
-            {
-              "name": "fatherId",
-              "in": "path",
-              "required": true,
-              "schema": {
-                "type": "integer",
-                "format": "int32"
-              }
-            },
-            {
-              "name": "motherId",
-              "in": "path",
-              "required": true,
-              "schema": {
-                "type": "integer",
-                "format": "int32"
-              }
-            },
-            {
-              "name": "childId",
-              "in": "path",
-              "required": true,
-              "schema": {
-                "type": "integer",
-                "format": "int32"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "OK"
-            }
-          }
-        }
-      },
-      "/api/Person/AddMariage/husband/{husbandId}/wife/{wifeId}": {
-        "post": {
-          "tags": [
-            "Person"
-          ],
-          "parameters": [
-            {
-              "name": "husbandId",
-              "in": "path",
-              "required": true,
-              "schema": {
-                "type": "integer",
-                "format": "int32"
-              }
-            },
-            {
-              "name": "wifeId",
-              "in": "path",
-              "required": true,
-              "schema": {
-                "type": "integer",
-                "format": "int32"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "OK"
             }
           }
         }
       }
     },
-    "components": {
-      "schemas": {
-        "CreatePersonDto": {
-          "type": "object",
-          "properties": {
-            "fullName": {
-              "type": "string",
-              "nullable": true
-            },
-            "birthDate": {
-              "type": "string",
-              "nullable": true
-            },
-            "deathDate": {
-              "type": "string",
-              "nullable": true
-            },
-            "birthPlace": {
-              "type": "string",
-              "nullable": true
-            },
-            "deathPlace": {
-              "type": "string",
-              "nullable": true
+    "/api/FamilyTree/GetDatasets": {
+      "get": {
+        "tags": [
+          "FamilyTree"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
             }
-          },
-          "additionalProperties": false
+          }
+        }
+      }
+    },
+    "/api/Person/AddPerson": {
+      "post": {
+        "tags": [
+          "Person"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePersonDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePersonDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePersonDto"
+              }
+            }
+          }
         },
-        "UpdatePersonDto": {
-          "type": "object",
-          "properties": {
-            "fullName": {
-              "type": "string",
-              "nullable": true
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Person/AddPersonWithRelation": {
+      "post": {
+        "tags": [
+          "Person"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePersonWithRelationDto"
+              }
             },
-            "birthDate": {
-              "type": "string",
-              "nullable": true
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePersonWithRelationDto"
+              }
             },
-            "deathDate": {
-              "type": "string",
-              "nullable": true
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePersonWithRelationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Person/UpdatePerson/personId:int": {
+      "put": {
+        "tags": [
+          "Person"
+        ],
+        "parameters": [
+          {
+            "name": "personId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePersonDto"
+              }
             },
-            "birthPlace": {
-              "type": "string",
-              "nullable": true
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePersonDto"
+              }
             },
-            "deathPlace": {
-              "type": "string",
-              "nullable": true
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePersonDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Person/DeletePerson/personId:int": {
+      "delete": {
+        "tags": [
+          "Person"
+        ],
+        "parameters": [
+          {
+            "name": "personId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Person/GetPerson/personId:int": {
+      "get": {
+        "tags": [
+          "Person"
+        ],
+        "parameters": [
+          {
+            "name": "personId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PersonViewDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PersonViewDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PersonViewDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Person/AddChildrenConnection/father/{fatherId}/mother/{motherId}/child/{childId}": {
+      "post": {
+        "tags": [
+          "Person"
+        ],
+        "parameters": [
+          {
+            "name": "fatherId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
             }
           },
-          "additionalProperties": false
+          {
+            "name": "motherId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "childId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Person/UploadImage/person/{personId}": {
+      "post": {
+        "tags": [
+          "Person"
+        ],
+        "parameters": [
+          {
+            "name": "personId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "file": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
         }
       }
     }
+  },
+  "components": {
+    "schemas": {
+      "CreatePersonDto": {
+        "required": [
+          "from",
+          "gender",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "minLength": 1,
+            "type": "string",
+            "readOnly": true
+          },
+          "gender": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "from": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "to": {
+            "type": "string",
+            "nullable": true
+          },
+          "birthPlace": {
+            "type": "string",
+            "nullable": true
+          },
+          "deathPlace": {
+            "type": "string",
+            "nullable": true
+          },
+          "dataset": {
+            "type": "string",
+            "nullable": true
+          },
+          "family": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreatePersonWithRelationDto": {
+        "required": [
+          "from",
+          "gender",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "minLength": 1,
+            "type": "string",
+            "readOnly": true
+          },
+          "gender": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "from": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "to": {
+            "type": "string",
+            "nullable": true
+          },
+          "birthPlace": {
+            "type": "string",
+            "nullable": true
+          },
+          "deathPlace": {
+            "type": "string",
+            "nullable": true
+          },
+          "dataset": {
+            "type": "string",
+            "nullable": true
+          },
+          "family": {
+            "type": "string",
+            "nullable": true
+          },
+          "parentIds": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "FamilyTreeDto": {
+        "required": [
+          "edges",
+          "nodes"
+        ],
+        "type": "object",
+        "properties": {
+          "nodes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NodeDto"
+            }
+          },
+          "edges": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RelationDto"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "FamilyTreePersonDto": {
+        "required": [
+          "family",
+          "from",
+          "gender",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "minLength": 1,
+            "type": "string",
+            "readOnly": true
+          },
+          "gender": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "from": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "to": {
+            "type": "string",
+            "nullable": true
+          },
+          "family": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "imageSrc": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "NodeDto": {
+        "required": [
+          "data",
+          "id"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "data": {
+            "$ref": "#/components/schemas/FamilyTreePersonDto"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PersonViewDto": {
+        "required": [
+          "family",
+          "from",
+          "gender",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "minLength": 1,
+            "type": "string",
+            "readOnly": true
+          },
+          "gender": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "from": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "to": {
+            "type": "string",
+            "nullable": true
+          },
+          "family": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "birthPlace": {
+            "type": "string",
+            "nullable": true
+          },
+          "deathPlace": {
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "imageSrc": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "RelationDto": {
+        "required": [
+          "id",
+          "source",
+          "target"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "source": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "target": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdatePersonDto": {
+        "required": [
+          "family",
+          "from",
+          "gender",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "minLength": 1,
+            "type": "string",
+            "readOnly": true
+          },
+          "gender": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "from": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "to": {
+            "type": "string",
+            "nullable": true
+          },
+          "family": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "birthPlace": {
+            "type": "string",
+            "nullable": true
+          },
+          "deathPlace": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    }
   }
+}

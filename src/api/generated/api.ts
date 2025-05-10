@@ -34,19 +34,25 @@ export interface CreatePersonDto {
      * @type {string}
      * @memberof CreatePersonDto
      */
-    'fullName'?: string | null;
+    'name': string;
     /**
      * 
      * @type {string}
      * @memberof CreatePersonDto
      */
-    'birthDate'?: string | null;
+    'gender': string;
     /**
      * 
      * @type {string}
      * @memberof CreatePersonDto
      */
-    'deathDate'?: string | null;
+    'from': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreatePersonDto
+     */
+    'to'?: string | null;
     /**
      * 
      * @type {string}
@@ -59,6 +65,246 @@ export interface CreatePersonDto {
      * @memberof CreatePersonDto
      */
     'deathPlace'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreatePersonDto
+     */
+    'dataset'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreatePersonDto
+     */
+    'family'?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface CreatePersonWithRelationDto
+ */
+export interface CreatePersonWithRelationDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof CreatePersonWithRelationDto
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreatePersonWithRelationDto
+     */
+    'gender': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreatePersonWithRelationDto
+     */
+    'from': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreatePersonWithRelationDto
+     */
+    'to'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreatePersonWithRelationDto
+     */
+    'birthPlace'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreatePersonWithRelationDto
+     */
+    'deathPlace'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreatePersonWithRelationDto
+     */
+    'dataset'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreatePersonWithRelationDto
+     */
+    'family'?: string | null;
+    /**
+     * 
+     * @type {Array<number>}
+     * @memberof CreatePersonWithRelationDto
+     */
+    'parentIds'?: Array<number> | null;
+}
+/**
+ * 
+ * @export
+ * @interface FamilyTreeDto
+ */
+export interface FamilyTreeDto {
+    /**
+     * 
+     * @type {Array<NodeDto>}
+     * @memberof FamilyTreeDto
+     */
+    'nodes': Array<NodeDto>;
+    /**
+     * 
+     * @type {Array<RelationDto>}
+     * @memberof FamilyTreeDto
+     */
+    'edges': Array<RelationDto>;
+}
+/**
+ * 
+ * @export
+ * @interface FamilyTreePersonDto
+ */
+export interface FamilyTreePersonDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof FamilyTreePersonDto
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof FamilyTreePersonDto
+     */
+    'gender': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof FamilyTreePersonDto
+     */
+    'from': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof FamilyTreePersonDto
+     */
+    'to'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof FamilyTreePersonDto
+     */
+    'family': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof FamilyTreePersonDto
+     */
+    'imageSrc'?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface NodeDto
+ */
+export interface NodeDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof NodeDto
+     */
+    'id': string;
+    /**
+     * 
+     * @type {FamilyTreePersonDto}
+     * @memberof NodeDto
+     */
+    'data': FamilyTreePersonDto;
+}
+/**
+ * 
+ * @export
+ * @interface PersonViewDto
+ */
+export interface PersonViewDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof PersonViewDto
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof PersonViewDto
+     */
+    'gender': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof PersonViewDto
+     */
+    'from': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof PersonViewDto
+     */
+    'to'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof PersonViewDto
+     */
+    'family': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof PersonViewDto
+     */
+    'birthPlace'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof PersonViewDto
+     */
+    'deathPlace'?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof PersonViewDto
+     */
+    'id'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof PersonViewDto
+     */
+    'imageSrc'?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface RelationDto
+ */
+export interface RelationDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof RelationDto
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RelationDto
+     */
+    'source': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RelationDto
+     */
+    'target': string;
 }
 /**
  * 
@@ -71,19 +317,31 @@ export interface UpdatePersonDto {
      * @type {string}
      * @memberof UpdatePersonDto
      */
-    'fullName'?: string | null;
+    'name': string;
     /**
      * 
      * @type {string}
      * @memberof UpdatePersonDto
      */
-    'birthDate'?: string | null;
+    'gender': string;
     /**
      * 
      * @type {string}
      * @memberof UpdatePersonDto
      */
-    'deathDate'?: string | null;
+    'from': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdatePersonDto
+     */
+    'to'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdatePersonDto
+     */
+    'family': string;
     /**
      * 
      * @type {string}
@@ -109,8 +367,8 @@ export const FamilyTreeApiAxiosParamCreator = function (configuration?: Configur
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiFamilyTreeGet: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/FamilyTree`;
+        apiFamilyTreeGetDatasetsGet: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/FamilyTree/GetDatasets`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -121,6 +379,45 @@ export const FamilyTreeApiAxiosParamCreator = function (configuration?: Configur
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} [dataset] 
+         * @param {string} [family] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiFamilyTreeGetFamilyTreeGet: async (dataset?: string, family?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/FamilyTree/GetFamilyTree`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (dataset !== undefined) {
+                localVarQueryParameter['dataset'] = dataset;
+            }
+
+            if (family !== undefined) {
+                localVarQueryParameter['family'] = family;
+            }
 
 
     
@@ -148,10 +445,23 @@ export const FamilyTreeApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiFamilyTreeGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.apiFamilyTreeGet(options);
+        async apiFamilyTreeGetDatasetsGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<string>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiFamilyTreeGetDatasetsGet(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['FamilyTreeApi.apiFamilyTreeGet']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['FamilyTreeApi.apiFamilyTreeGetDatasetsGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} [dataset] 
+         * @param {string} [family] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiFamilyTreeGetFamilyTreeGet(dataset?: string, family?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FamilyTreeDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiFamilyTreeGetFamilyTreeGet(dataset, family, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['FamilyTreeApi.apiFamilyTreeGetFamilyTreeGet']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
@@ -169,8 +479,18 @@ export const FamilyTreeApiFactory = function (configuration?: Configuration, bas
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiFamilyTreeGet(options?: RawAxiosRequestConfig): AxiosPromise<void> {
-            return localVarFp.apiFamilyTreeGet(options).then((request) => request(axios, basePath));
+        apiFamilyTreeGetDatasetsGet(options?: RawAxiosRequestConfig): AxiosPromise<Array<string>> {
+            return localVarFp.apiFamilyTreeGetDatasetsGet(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} [dataset] 
+         * @param {string} [family] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiFamilyTreeGetFamilyTreeGet(dataset?: string, family?: string, options?: RawAxiosRequestConfig): AxiosPromise<FamilyTreeDto> {
+            return localVarFp.apiFamilyTreeGetFamilyTreeGet(dataset, family, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -188,117 +508,20 @@ export class FamilyTreeApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FamilyTreeApi
      */
-    public apiFamilyTreeGet(options?: RawAxiosRequestConfig) {
-        return FamilyTreeApiFp(this.configuration).apiFamilyTreeGet(options).then((request) => request(this.axios, this.basePath));
+    public apiFamilyTreeGetDatasetsGet(options?: RawAxiosRequestConfig) {
+        return FamilyTreeApiFp(this.configuration).apiFamilyTreeGetDatasetsGet(options).then((request) => request(this.axios, this.basePath));
     }
-}
 
-
-
-/**
- * FileApi - axios parameter creator
- * @export
- */
-export const FileApiAxiosParamCreator = function (configuration?: Configuration) {
-    return {
-        /**
-         * 
-         * @param {File} [formFile] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        apiFileUploadGedPost: async (formFile?: File, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/File/UploadGed`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-            const localVarFormParams = new ((configuration && configuration.formDataCtor) || FormData)();
-
-
-            if (formFile !== undefined) { 
-                localVarFormParams.append('formFile', formFile as any);
-            }
-    
-    
-            localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-    }
-};
-
-/**
- * FileApi - functional programming interface
- * @export
- */
-export const FileApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = FileApiAxiosParamCreator(configuration)
-    return {
-        /**
-         * 
-         * @param {File} [formFile] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async apiFileUploadGedPost(formFile?: File, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.apiFileUploadGedPost(formFile, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['FileApi.apiFileUploadGedPost']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-    }
-};
-
-/**
- * FileApi - factory interface
- * @export
- */
-export const FileApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = FileApiFp(configuration)
-    return {
-        /**
-         * 
-         * @param {File} [formFile] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        apiFileUploadGedPost(formFile?: File, options?: RawAxiosRequestConfig): AxiosPromise<void> {
-            return localVarFp.apiFileUploadGedPost(formFile, options).then((request) => request(axios, basePath));
-        },
-    };
-};
-
-/**
- * FileApi - object-oriented interface
- * @export
- * @class FileApi
- * @extends {BaseAPI}
- */
-export class FileApi extends BaseAPI {
     /**
      * 
-     * @param {File} [formFile] 
+     * @param {string} [dataset] 
+     * @param {string} [family] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof FileApi
+     * @memberof FamilyTreeApi
      */
-    public apiFileUploadGedPost(formFile?: File, options?: RawAxiosRequestConfig) {
-        return FileApiFp(this.configuration).apiFileUploadGedPost(formFile, options).then((request) => request(this.axios, this.basePath));
+    public apiFamilyTreeGetFamilyTreeGet(dataset?: string, family?: string, options?: RawAxiosRequestConfig) {
+        return FamilyTreeApiFp(this.configuration).apiFamilyTreeGetFamilyTreeGet(dataset, family, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -353,43 +576,6 @@ export const PersonApiAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * 
-         * @param {number} husbandId 
-         * @param {number} wifeId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        apiPersonAddMariageHusbandHusbandIdWifeWifeIdPost: async (husbandId: number, wifeId: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'husbandId' is not null or undefined
-            assertParamExists('apiPersonAddMariageHusbandHusbandIdWifeWifeIdPost', 'husbandId', husbandId)
-            // verify required parameter 'wifeId' is not null or undefined
-            assertParamExists('apiPersonAddMariageHusbandHusbandIdWifeWifeIdPost', 'wifeId', wifeId)
-            const localVarPath = `/api/Person/AddMariage/husband/{husbandId}/wife/{wifeId}`
-                .replace(`{${"husbandId"}}`, encodeURIComponent(String(husbandId)))
-                .replace(`{${"wifeId"}}`, encodeURIComponent(String(wifeId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
          * @param {CreatePersonDto} [createPersonDto] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -415,6 +601,39 @@ export const PersonApiAxiosParamCreator = function (configuration?: Configuratio
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(createPersonDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {CreatePersonWithRelationDto} [createPersonWithRelationDto] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiPersonAddPersonWithRelationPost: async (createPersonWithRelationDto?: CreatePersonWithRelationDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/Person/AddPersonWithRelation`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createPersonWithRelationDto, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -527,6 +746,48 @@ export const PersonApiAxiosParamCreator = function (configuration?: Configuratio
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @param {number} personId 
+         * @param {File} [file] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiPersonUploadImagePersonPersonIdPost: async (personId: number, file?: File, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'personId' is not null or undefined
+            assertParamExists('apiPersonUploadImagePersonPersonIdPost', 'personId', personId)
+            const localVarPath = `/api/Person/UploadImage/person/{personId}`
+                .replace(`{${"personId"}}`, encodeURIComponent(String(personId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+            const localVarFormParams = new ((configuration && configuration.formDataCtor) || FormData)();
+
+
+            if (file !== undefined) { 
+                localVarFormParams.append('file', file as any);
+            }
+    
+    
+            localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = localVarFormParams;
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -553,19 +814,6 @@ export const PersonApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @param {number} husbandId 
-         * @param {number} wifeId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async apiPersonAddMariageHusbandHusbandIdWifeWifeIdPost(husbandId: number, wifeId: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.apiPersonAddMariageHusbandHusbandIdWifeWifeIdPost(husbandId, wifeId, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['PersonApi.apiPersonAddMariageHusbandHusbandIdWifeWifeIdPost']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * 
          * @param {CreatePersonDto} [createPersonDto] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -574,6 +822,18 @@ export const PersonApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiPersonAddPersonPost(createPersonDto, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['PersonApi.apiPersonAddPersonPost']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {CreatePersonWithRelationDto} [createPersonWithRelationDto] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiPersonAddPersonWithRelationPost(createPersonWithRelationDto?: CreatePersonWithRelationDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiPersonAddPersonWithRelationPost(createPersonWithRelationDto, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['PersonApi.apiPersonAddPersonWithRelationPost']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -594,7 +854,7 @@ export const PersonApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiPersonGetPersonPersonIdIntGet(personId?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async apiPersonGetPersonPersonIdIntGet(personId?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PersonViewDto>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiPersonGetPersonPersonIdIntGet(personId, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['PersonApi.apiPersonGetPersonPersonIdIntGet']?.[localVarOperationServerIndex]?.url;
@@ -611,6 +871,19 @@ export const PersonApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiPersonUpdatePersonPersonIdIntPut(personId, updatePersonDto, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['PersonApi.apiPersonUpdatePersonPersonIdIntPut']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {number} personId 
+         * @param {File} [file] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiPersonUploadImagePersonPersonIdPost(personId: number, file?: File, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiPersonUploadImagePersonPersonIdPost(personId, file, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['PersonApi.apiPersonUploadImagePersonPersonIdPost']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
@@ -636,22 +909,21 @@ export const PersonApiFactory = function (configuration?: Configuration, basePat
         },
         /**
          * 
-         * @param {number} husbandId 
-         * @param {number} wifeId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        apiPersonAddMariageHusbandHusbandIdWifeWifeIdPost(husbandId: number, wifeId: number, options?: RawAxiosRequestConfig): AxiosPromise<void> {
-            return localVarFp.apiPersonAddMariageHusbandHusbandIdWifeWifeIdPost(husbandId, wifeId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
          * @param {CreatePersonDto} [createPersonDto] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         apiPersonAddPersonPost(createPersonDto?: CreatePersonDto, options?: RawAxiosRequestConfig): AxiosPromise<void> {
             return localVarFp.apiPersonAddPersonPost(createPersonDto, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {CreatePersonWithRelationDto} [createPersonWithRelationDto] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiPersonAddPersonWithRelationPost(createPersonWithRelationDto?: CreatePersonWithRelationDto, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.apiPersonAddPersonWithRelationPost(createPersonWithRelationDto, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -668,7 +940,7 @@ export const PersonApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiPersonGetPersonPersonIdIntGet(personId?: number, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        apiPersonGetPersonPersonIdIntGet(personId?: number, options?: RawAxiosRequestConfig): AxiosPromise<PersonViewDto> {
             return localVarFp.apiPersonGetPersonPersonIdIntGet(personId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -680,6 +952,16 @@ export const PersonApiFactory = function (configuration?: Configuration, basePat
          */
         apiPersonUpdatePersonPersonIdIntPut(personId?: number, updatePersonDto?: UpdatePersonDto, options?: RawAxiosRequestConfig): AxiosPromise<void> {
             return localVarFp.apiPersonUpdatePersonPersonIdIntPut(personId, updatePersonDto, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {number} personId 
+         * @param {File} [file] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiPersonUploadImagePersonPersonIdPost(personId: number, file?: File, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.apiPersonUploadImagePersonPersonIdPost(personId, file, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -706,18 +988,6 @@ export class PersonApi extends BaseAPI {
 
     /**
      * 
-     * @param {number} husbandId 
-     * @param {number} wifeId 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof PersonApi
-     */
-    public apiPersonAddMariageHusbandHusbandIdWifeWifeIdPost(husbandId: number, wifeId: number, options?: RawAxiosRequestConfig) {
-        return PersonApiFp(this.configuration).apiPersonAddMariageHusbandHusbandIdWifeWifeIdPost(husbandId, wifeId, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
      * @param {CreatePersonDto} [createPersonDto] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -725,6 +995,17 @@ export class PersonApi extends BaseAPI {
      */
     public apiPersonAddPersonPost(createPersonDto?: CreatePersonDto, options?: RawAxiosRequestConfig) {
         return PersonApiFp(this.configuration).apiPersonAddPersonPost(createPersonDto, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {CreatePersonWithRelationDto} [createPersonWithRelationDto] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PersonApi
+     */
+    public apiPersonAddPersonWithRelationPost(createPersonWithRelationDto?: CreatePersonWithRelationDto, options?: RawAxiosRequestConfig) {
+        return PersonApiFp(this.configuration).apiPersonAddPersonWithRelationPost(createPersonWithRelationDto, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -759,6 +1040,18 @@ export class PersonApi extends BaseAPI {
      */
     public apiPersonUpdatePersonPersonIdIntPut(personId?: number, updatePersonDto?: UpdatePersonDto, options?: RawAxiosRequestConfig) {
         return PersonApiFp(this.configuration).apiPersonUpdatePersonPersonIdIntPut(personId, updatePersonDto, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {number} personId 
+     * @param {File} [file] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PersonApi
+     */
+    public apiPersonUploadImagePersonPersonIdPost(personId: number, file?: File, options?: RawAxiosRequestConfig) {
+        return PersonApiFp(this.configuration).apiPersonUploadImagePersonPersonIdPost(personId, file, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

@@ -13,6 +13,7 @@ export type FamilyNodeData = {
   isInActive?: boolean;
 };
 export type FamilyTreeNode = Node<FamilyNodeData, "familyNode">;
+export type RelationShipNode = Node<{}, "relationshipNode">;
 
 export const nodeTypes = {
   familyNode: FamilyTreeNode, // This must match the `type` field
@@ -22,4 +23,20 @@ export type FamilyMemberPreview = {
   id: string;
   imageSrc: string;
   isDead: boolean;
+};
+
+export const relationShipNodeStyle = {
+  width: 1,
+  height: 1,
+  padding: 0.5,
+  border: "none",
+};
+
+export const relationNode = {
+  data: {},
+  width: 0,
+  height: 0,
+  style: relationShipNodeStyle,
+  type: "relationshipNode",
+  position: { x: 0, y: 0 },
 };

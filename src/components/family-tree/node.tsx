@@ -7,7 +7,13 @@ import { highlightAncestors } from "src/store/treeSlice";
 import { TrashIcon } from "@heroicons/react/24/outline";
 import { NodeContext } from "./node-context";
 import { modals } from "src/utils/modal.consts";
-import { setSelectedNode } from "src/store/modalSlice";
+import {
+  setDeleteModal,
+  setEditModal,
+  setImageUploadModal,
+  setSelectedNode,
+} from "src/store/modalSlice";
+import { PencilIcon, PhotoIcon } from "@heroicons/react/20/solid";
 
 export default function FamilyTreeNode({
   id,
@@ -44,15 +50,39 @@ export default function FamilyTreeNode({
       <div
         onMouseOver={onHover}
         onMouseLeave={onLeave}
-        onClick={() => onFamilyMemberClick(data)}
+        className="aspect-square w-56 h-56"
       >
         <Handle type="target" position={Position.Top} />
         <NodeToolbar isVisible={isToolbarVisible && inEdit}>
-          <button className="bg-red-400 rounded-full aspect-square p-2">
-            <TrashIcon className="size-6 text-white" />
-          </button>
+          <div className="flex gap-2">
+            <button
+              className="btn btn-accent aspect-square rounded-full p-0 h-8 w-8"
+              onClick={() => {
+                dispatch(setEditModal(data));
+              }}
+            >
+              <PencilIcon className="size-5 text-white" />
+            </button>
+            <button
+              className="btn btn-primary aspect-square rounded-full p-0 h-8 w-8"
+              onClick={() => {
+                dispatch(setImageUploadModal(data));
+              }}
+            >
+              <PhotoIcon className="size-5 text-white" />
+            </button>
+            <button
+              className="btn btn-error rounded-full aspect-square h-8 w-8 p-0"
+              onClick={() => dispatch(setDeleteModal({ id, name: data.name }))}
+            >
+              <TrashIcon className="size-5 text-white" />
+            </button>
+          </div>
         </NodeToolbar>
-        <div className="flex flex-col items-center p-1 gap-4">
+        <div
+          className="flex flex-col items-center p-1 gap-4 aspect-square"
+          onClick={() => onFamilyMemberClick(data)}
+        >
           <div className="tooltip tooltip-right" data-tip="Datasheet">
             <NodePicture
               imageSrc={data.imageSrc}

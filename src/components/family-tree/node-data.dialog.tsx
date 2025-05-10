@@ -1,10 +1,10 @@
 import { NodePicture } from "./node-picture";
 import NodeTitle from "./node-title";
-import { store, useAppDispatch, useAppSelector } from "src/store/store";
+import { useAppSelector } from "src/store/store";
 import { selectRelated } from "src/store/selectors";
-import { setSelectedNode } from "src/store/modalSlice";
 import { FamilyNodeData } from "src/models/types";
 import { NodeContext } from "./node-context";
+import NodeRelatedMembers from "./node-related-memebers";
 
 type NodeDataDialogProps = {
   data: FamilyNodeData;
@@ -12,7 +12,6 @@ type NodeDataDialogProps = {
 
 export default function NodeDataDialog({ data }: NodeDataDialogProps) {
   const { name, imageSrc, family, isDead } = data;
-  const dispatch = useAppDispatch();
 
   const familyMembers = useAppSelector(selectRelated(family));
 
@@ -29,26 +28,7 @@ export default function NodeDataDialog({ data }: NodeDataDialogProps) {
             />
             <NodeTitle />
             <h2>{family}</h2>
-            <div className="flex flex-wrap">
-              {familyMembers?.map((p) => (
-                <NodePicture
-                  onClick={() => {
-                    dispatch(
-                      setSelectedNode(
-                        store
-                          .getState()
-                          .tree.present.nodes.find((n) => n.id === p.id)!.data
-                      )
-                    );
-                  }}
-                  size="3rem"
-                  key={p.id}
-                  gender="none"
-                  imageSrc={p.imageSrc}
-                  isDead={p.isDead}
-                />
-              ))}
-            </div>
+            <NodeRelatedMembers familyMembers={familyMembers} />
           </div>
           <div className="flex flex-2/3">
             <h1 className="font-bold text-lg w-full text-center">{`Who ${

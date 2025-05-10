@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import undoable from "redux-undo";
-import { FamilyTreeNode } from "src/models/types";
+import { FamilyTreeNode, RelationShipNode } from "src/models/types";
 import AryaSrc from "src/assets/arya.png";
 import BreakingBadSrc from "src/assets/brba.jpg";
 import { Edge } from "@xyflow/react";
 type TreeState = {
-  nodes: FamilyTreeNode[];
+  nodes: (FamilyTreeNode | RelationShipNode)[];
   edges: Edge[];
 };
 
@@ -17,6 +17,13 @@ const highlightedStroke = {
   strokeWidth: 5,
   stroke: "green",
   zIndex: 1,
+};
+
+export const relationShipNodeStyle = {
+  width: 1,
+  height: 1,
+  padding: 0.5,
+  border: "none",
 };
 
 export const gotDataset = {
@@ -245,11 +252,15 @@ export const gotDataset = {
   ] as Edge[],
 };
 
-export const breakingBadDataset = {
+export const breakingBadDataset: {
+  nodes: (RelationShipNode | FamilyTreeNode)[];
+  edges: Edge[];
+} = {
   nodes: [
     {
       id: "walter",
       data: {
+        family: "Walter Family",
         name: "Walter White",
         imageSrc: BreakingBadSrc,
         gender: "male",
@@ -262,6 +273,7 @@ export const breakingBadDataset = {
     {
       id: "skyler",
       data: {
+        family: "Walter Family",
         name: "Skyler White",
         imageSrc: BreakingBadSrc,
         gender: "female",
@@ -273,6 +285,7 @@ export const breakingBadDataset = {
     {
       id: "waltjr",
       data: {
+        family: "Walter Family",
         name: "Walter White Jr.",
         imageSrc: BreakingBadSrc,
         gender: "male",
@@ -284,6 +297,7 @@ export const breakingBadDataset = {
     {
       id: "holly",
       data: {
+        family: "Walter Family",
         name: "Holly White",
         imageSrc: BreakingBadSrc,
         gender: "female",
@@ -295,6 +309,7 @@ export const breakingBadDataset = {
     {
       id: "marie",
       data: {
+        family: "Walter Family",
         name: "Marie Schrader",
         imageSrc: BreakingBadSrc,
         gender: "female",
@@ -306,6 +321,7 @@ export const breakingBadDataset = {
     {
       id: "hank",
       data: {
+        family: "Walter Family",
         name: "Hank Schrader",
         imageSrc: BreakingBadSrc,
         gender: "male",
@@ -315,47 +331,398 @@ export const breakingBadDataset = {
       position: { x: 600, y: 0 },
       type: "familyNode",
     },
-  ] as FamilyTreeNode[],
+    // Relationship Nodes:
+    {
+      id: "walter-skyler",
+      data: {},
+      width: 0,
+      height: 0,
+      style: relationShipNodeStyle,
+      position: { x: 100, y: 50 }, //  Position between Walter and Skyler
+      type: "relationshipNode",
+    },
+    {
+      id: "marie-hank",
+      data: {},
+      width: 0,
+      height: 0,
+      style: relationShipNodeStyle,
+      position: { x: 500, y: 50 }, // Position between Marie and Hank
+      type: "relationshipNode",
+    },
+  ],
   edges: [
     // Walter + Skyler children
+    // Walter and Skyler Relationship
     {
-      id: "walter-waltjr",
+      id: "walter-skyler",
       source: "walter",
-      target: "waltjr",
+      target: "walter-skyler",
       type: "smoothstep",
     },
     {
-      id: "skyler-waltjr",
+      id: "skyler-walter",
       source: "skyler",
-      target: "waltjr",
-      type: "smoothstep",
-    },
-    {
-      id: "walter-holly",
-      source: "walter",
-      target: "holly",
-      type: "smoothstep",
-    },
-    {
-      id: "skyler-holly",
-      source: "skyler",
-      target: "holly",
+      target: "walter-skyler",
       type: "smoothstep",
     },
 
-    // Marie and Hank marriage (no children shown in series)
-    { id: "marie-hank", source: "marie", target: "hank", type: "smoothstep" },
+    {
+      id: "walter-skyler-holly",
+      source: "walter-skyler",
+      target: "holly",
+      type: "smoothstep",
+    },
+    {
+      id: "walter-skyler-waltjr",
+      source: "walter-skyler",
+      target: "waltjr",
+      type: "smoothstep",
+    },
+
+    // Marie and Hank Relationship
+    {
+      id: "marie-hank-edge",
+      source: "marie",
+      target: "marie-hank",
+      type: "smoothstep",
+    },
+    {
+      id: "hank-marie-edge",
+      source: "hank",
+      target: "marie-hank",
+      type: "smoothstep",
+    },
   ] as Edge[],
 };
 
 const initialState: TreeState = {
-  ...gotDataset,
+  nodes: [],
+  edges: [],
+};
+
+export const potterDataset: {
+  nodes: (FamilyTreeNode | RelationShipNode)[];
+  edges: Edge[];
+} = {
+  nodes: [
+    // Generation 1
+    {
+      id: "linfred",
+      data: {
+        name: "Linfred of Stinchcombe",
+        imageSrc:
+          "https://static.wikia.nocookie.net/harrypotter/images/1/1e/Linfred_of_Stinchcombe.jpg",
+        gender: "male",
+        from: "1200",
+        family: "House Potter",
+      },
+      position: { x: 0, y: 0 },
+      type: "familyNode",
+    },
+    {
+      id: "iolanthe",
+      data: {
+        name: "Iolanthe Peverell",
+        imageSrc:
+          "https://static.wikia.nocookie.net/harrypotter/images/2/2e/Iolanthe_Peverell.jpg",
+        gender: "female",
+        from: "1205",
+        family: "House Peverell",
+      },
+      position: { x: 200, y: 0 },
+      type: "familyNode",
+    },
+    {
+      id: "linfred_iolanthe_union",
+      data: {},
+      type: "relationshipNode",
+      width: 0,
+      height: 0,
+      style: relationShipNodeStyle,
+      position: { x: 100, y: 100 },
+    },
+    {
+      id: "hardwin",
+      data: {
+        name: "Hardwin Potter",
+        imageSrc:
+          "https://static.wikia.nocookie.net/harrypotter/images/3/3e/Hardwin_Potter.jpg",
+        gender: "male",
+        from: "1230",
+        family: "House Potter",
+      },
+      position: { x: 100, y: 200 },
+      type: "familyNode",
+    },
+
+    // Generation 2
+    {
+      id: "fleamont",
+      data: {
+        name: "Fleamont Potter",
+        imageSrc:
+          "https://static.wikia.nocookie.net/harrypotter/images/4/4e/Fleamont_Potter.jpg",
+        gender: "male",
+        from: "1909",
+        family: "House Potter",
+      },
+      position: { x: 0, y: 300 },
+      type: "familyNode",
+    },
+    {
+      id: "euphemia",
+      data: {
+        name: "Euphemia Potter",
+        imageSrc:
+          "https://static.wikia.nocookie.net/harrypotter/images/5/5e/Euphemia_Potter.jpg",
+        gender: "female",
+        from: "1915",
+        family: "House Potter",
+      },
+      position: { x: 200, y: 300 },
+      type: "familyNode",
+    },
+    {
+      id: "fleamont_euphemia_union",
+      data: {},
+      width: 0,
+      height: 0,
+      style: relationShipNodeStyle,
+      type: "relationshipNode",
+      position: { x: 100, y: 400 },
+    },
+    {
+      id: "james",
+      data: {
+        name: "James Potter",
+        imageSrc:
+          "https://static.wikia.nocookie.net/harrypotter/images/6/6e/James_Potter.jpg",
+        gender: "male",
+        from: "1960",
+        family: "House Potter",
+      },
+      position: { x: 100, y: 500 },
+      type: "familyNode",
+    },
+
+    // Generation 3
+    {
+      id: "lily",
+      data: {
+        name: "Lily Evans",
+        imageSrc:
+          "https://static.wikia.nocookie.net/harrypotter/images/7/7e/Lily_Evans.jpg",
+        gender: "female",
+        from: "1960",
+        family: "House Evans",
+      },
+      position: { x: 300, y: 500 },
+      type: "familyNode",
+    },
+    {
+      id: "james_lily_union",
+      type: "relationshipNode",
+      style: relationShipNodeStyle,
+      data: {},
+      width: 0,
+      height: 0,
+      position: { x: 200, y: 600 },
+    },
+    {
+      id: "harry",
+      data: {
+        name: "Harry Potter",
+        imageSrc:
+          "https://static.wikia.nocookie.net/harrypotter/images/8/8e/Harry_Potter.jpg",
+        gender: "male",
+        from: "1980",
+        family: "House Potter",
+      },
+      position: { x: 200, y: 700 },
+      type: "familyNode",
+    },
+
+    // Generation 4
+    {
+      id: "ginny",
+      data: {
+        name: "Ginny Weasley",
+        imageSrc:
+          "https://static.wikia.nocookie.net/harrypotter/images/9/9e/Ginny_Weasley.jpg",
+        gender: "female",
+        from: "1981",
+        family: "House Weasley",
+      },
+      position: { x: 400, y: 700 },
+      type: "familyNode",
+    },
+    {
+      id: "harry_ginny_union",
+      type: "relationshipNode",
+      style: relationShipNodeStyle,
+      data: {},
+      width: 0,
+      height: 0,
+      position: { x: 300, y: 800 },
+    },
+    {
+      id: "james_sirius",
+      data: {
+        name: "James Sirius Potter",
+        imageSrc:
+          "https://static.wikia.nocookie.net/harrypotter/images/a/a0/James_Sirius_Potter.jpg",
+        gender: "male",
+        from: "2003",
+        family: "House Potter",
+      },
+      position: { x: 100, y: 900 },
+      type: "familyNode",
+    },
+    {
+      id: "albus_severus",
+      data: {
+        name: "Albus Severus Potter",
+        imageSrc:
+          "https://static.wikia.nocookie.net/harrypotter/images/b/b0/Albus_Severus_Potter.jpg",
+        gender: "male",
+        from: "2006",
+        family: "House Potter",
+      },
+      position: { x: 300, y: 900 },
+      type: "familyNode",
+    },
+    {
+      id: "lily_luna",
+      data: {
+        name: "Lily Luna Potter",
+        imageSrc:
+          "https://static.wikia.nocookie.net/harrypotter/images/c/c0/Lily_Luna_Potter.jpg",
+        gender: "female",
+        from: "2008",
+        family: "House Potter",
+      },
+      position: { x: 500, y: 900 },
+      type: "familyNode",
+    },
+  ],
+  edges: [
+    // Linfred and Iolanthe to their union
+    {
+      id: "linfred_to_union",
+      source: "linfred",
+      target: "linfred_iolanthe_union",
+      type: "smoothstep",
+      style: strokeStyle,
+    },
+    {
+      id: "iolanthe_to_union",
+      source: "iolanthe",
+      target: "linfred_iolanthe_union",
+      type: "smoothstep",
+      style: strokeStyle,
+    },
+    // Union to Hardwin
+    {
+      id: "union_to_hardwin",
+      source: "linfred_iolanthe_union",
+      target: "hardwin",
+      type: "smoothstep",
+      style: strokeStyle,
+    },
+
+    // Fleamont and Euphemia to their union
+    {
+      id: "fleamont_to_union",
+      source: "fleamont",
+      target: "fleamont_euphemia_union",
+      type: "smoothstep",
+      style: strokeStyle,
+    },
+    {
+      id: "euphemia_to_union",
+      source: "euphemia",
+      target: "fleamont_euphemia_union",
+      type: "smoothstep",
+      style: strokeStyle,
+    },
+    // Union to James
+    {
+      id: "union_to_james",
+      source: "fleamont_euphemia_union",
+      target: "james",
+      type: "smoothstep",
+      style: strokeStyle,
+    },
+
+    // James and Lily to their union
+    {
+      id: "james_to_union",
+      source: "james",
+      target: "james_lily_union",
+      type: "smoothstep",
+      style: strokeStyle,
+    },
+    {
+      id: "lily_to_union",
+      source: "lily",
+      target: "james_lily_union",
+      type: "smoothstep",
+      style: strokeStyle,
+    },
+    // Union to Harry
+    {
+      id: "union_to_harry",
+      source: "james_lily_union",
+      target: "harry",
+      type: "smoothstep",
+      style: strokeStyle,
+    },
+
+    // Harry and Ginny to their union
+    {
+      id: "harry_to_union",
+      source: "harry",
+      target: "harry_ginny_union",
+      type: "smoothstep",
+      style: strokeStyle,
+    },
+    {
+      id: "ginny_to_union",
+      source: "ginny",
+      target: "harry_ginny_union",
+      type: "smoothstep",
+      style: strokeStyle,
+    },
+    // Union to their children
+    {
+      id: "union_to_james_sirius",
+      source: "harry_ginny_union",
+      target: "james_sirius",
+      type: "smoothstep",
+      style: strokeStyle,
+    },
+    {
+      id: "union_to_albus_severus",
+      source: "harry_ginny_union",
+      target: "albus_severus",
+      type: "smoothstep",
+      style: strokeStyle,
+    },
+    {
+      id: "union_to_lily_luna",
+      source: "harry_ginny_union",
+      target: "lily_luna",
+      type: "smoothstep",
+      style: strokeStyle,
+    },
+  ],
 };
 
 const getAncestry = (id: string, edges: Edge[]): string[] => {
   let ancestry: string[] = [id];
   function getAncestryRecursive(id: string) {
-    const ancestors = edges.filter((p) => p.target === id);
+    const ancestors = edges.filter((p) => p.target === id || p.source === id);
 
     if (ancestors.length === 0) return;
     ancestry = ancestry.concat(ancestors.map((p) => p.source));
@@ -372,13 +739,22 @@ const treeSlice = createSlice({
   name: "tree",
   initialState,
   reducers: {
-    setNodes(state, action: PayloadAction<FamilyTreeNode[]>) {
+    setNodes(
+      state,
+      action: PayloadAction<(FamilyTreeNode | RelationShipNode)[]>
+    ) {
       console.log("inSetNodes", action);
       state.nodes = action.payload;
     },
+    setEgdes(state, action: PayloadAction<Edge[]>) {
+      state.edges = action.payload;
+    },
     setTree(
       state,
-      action: PayloadAction<{ nodes: FamilyTreeNode[]; edges: Edge[] }>
+      action: PayloadAction<{
+        nodes: (FamilyTreeNode | RelationShipNode)[];
+        edges: Edge[];
+      }>
     ) {
       state.nodes = action.payload.nodes;
       state.edges = action.payload.edges;
@@ -386,7 +762,9 @@ const treeSlice = createSlice({
     highlightAncestors(state, action: PayloadAction<string | undefined>) {
       if (!action.payload) {
         for (let node of state.nodes) {
-          node.data.isInActive = false;
+          if (node.type === "relationshipNode") continue;
+
+          (node as FamilyTreeNode).data.isInActive = false;
         }
         for (let edge of state.edges) {
           edge.style = strokeStyle;
@@ -398,7 +776,8 @@ const treeSlice = createSlice({
         .map((p) => p.id);
       const ancestry = getAncestry(action.payload, state.edges);
       for (let node of state.nodes.filter((p) => !ancestry.includes(p.id))) {
-        node.data.isInActive = true;
+        if (node.type === "relationshipNode") continue;
+        (node as FamilyTreeNode).data.isInActive = true;
       }
       state.edges = state.edges
         .map((edge) => ({
@@ -414,6 +793,7 @@ const treeSlice = createSlice({
   },
 });
 
-export const { setNodes, highlightAncestors, setTree } = treeSlice.actions;
+export const { setNodes, highlightAncestors, setTree, setEgdes } =
+  treeSlice.actions;
 
 export default undoable(treeSlice.reducer);
