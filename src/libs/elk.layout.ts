@@ -1,7 +1,11 @@
 import { Edge } from "@xyflow/react";
-import { FamilyTreeNode, RelationShipNode } from "src/models/types";
+import {
+  FamilyTreeNode,
+  relationNode,
+  RelationShipNode,
+} from "src/models/types";
 import ELK, { ElkNode } from "elkjs/lib/elk.bundled.js";
-import { getDummyEdges, getDummyNodes } from "./react.flow";
+import { getDummyEdges, getDummyNodes, invisibleNode } from "./react.flow";
 import { relationShipNodeStyle } from "src/store/treeSlice";
 
 const elk = new ELK();
@@ -29,6 +33,8 @@ export const getLayoutedElements = (
     targets: [edge.target],
   }));
 
+  let originalEdges = [...layoutEdges];
+
   for (let node of nodes
     .filter((p) => p.type === "relationshipNode")
     .map((p) => p as RelationShipNode)) {
@@ -47,8 +53,32 @@ export const getLayoutedElements = (
       layoutEdges = layoutEdges.filter(
         (p) => !parents.map((x) => x.id).includes(p.id)
       );
-      console.log("layedges", layoutEdges);
     }
+    // for (let id of ["1", "3", "4", "13"]) {
+    //   layoutNodes.push({
+    //     id: id + "dchildren",
+    //     width: 224,
+    //     height: 224,
+    //   });
+    //   layoutNodes.push({
+    //     id: id + "dchildren-relationchildren",
+    //     ...invisibleNode,
+    //   });
+
+    //   layoutEdges.push({
+    //     id: id + "dchildren-edge",
+    //     sources: [id],
+    //     targets: [id + "dchildren-relationchildren"],
+    //   });
+
+    //   layoutEdges.push({
+    //     id: id + "dchildren-edge",
+    //     sources: [id + "dchildren-relationchildren"],
+    //     targets: [id + "dchildren"],
+    //   });
+
+    //   console.log("lynodes", layoutNodes);
+    // }
   }
 
   const graph: ElkNode = {
@@ -67,7 +97,30 @@ export const getLayoutedElements = (
         layoutedGraph?.children
           ?.map((node) => {
             const original = nodeMap.get(node.id);
-            if (!original) return null;
+            if (!original) {
+              return;
+              // if (node.id.includes("dchildren"))
+              //   return {
+              //     id: node.id,
+              //     type: "familyNode",
+              //     data: {
+              //       name: "Titkos mikkentyű",
+              //       family: "",
+              //       gender: "none",
+              //       from: "-",
+              //       imageSrc: "",
+              //       isInActive: false,
+              //       isDead: false,
+              //     },
+              //     position: { x: node.x ?? 0, y: node.y ?? 0 },
+              //   } as FamilyTreeNode;
+              // else if (node.id.includes("relationchildren")) {
+              //   return {
+              //     ...relationNode,
+              //     id: node.id,
+              //   } as RelationShipNode;
+              // }
+            }
             const res: FamilyTreeNode | RelationShipNode = {
               ...original!,
               position: { x: node.x ?? 0, y: node.y ?? 0 },
@@ -77,13 +130,15 @@ export const getLayoutedElements = (
           .filter((p) => p)
           .map((p) => p!) ?? [];
 
+      console.log("transfNodes", JSON.stringify(transformedNodes, null, 2));
       // Apply edge layout
-      const transformedEdges: Edge[] = layoutEdges.map((edge) => ({
+      const transformedEdges: Edge[] = originalEdges.map((edge) => ({
         id: edge.id,
         source: edge.sources[0],
         target: edge.targets[0],
         type: "smoothstep", // Using smoothstep for better curves
       }));
+      console.log("transfEdges", JSON.stringify(transformedEdges, null, 2));
 
       return {
         nodes: transformedNodes,

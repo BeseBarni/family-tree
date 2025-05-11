@@ -18,13 +18,12 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { SunIcon } from "@heroicons/react/24/solid";
 import { MoonIcon } from "@heroicons/react/24/solid";
-import { setEdit } from "src/store/appSlice";
-import { getLayoutedElements } from "src/libs/elk.layout";
-import { elkOptions } from "src/libs/elk.options";
+import { setEdit, setSelectedDataset } from "src/store/appSlice";
+
 import { setAddModal } from "src/store/modalSlice";
 import { queries } from "src/utils/queries";
-import { api } from "src/api/api";
-import { Gender } from "src/models/gender";
+
+import { getFlowTree } from "src/utils/tree.utils";
 
 export default function Canvas() {
   const { nodes, edges } = useAppSelector((state) => state.tree.present);
@@ -35,80 +34,24 @@ export default function Canvas() {
     ...queries.datasetList(),
   });
 
-  const [selectedDataset, setSelectedDataset] = useState<string>("none");
+  const selectedDataset = useAppSelector(
+    (state) => state.app.selectedFitlers.dataset
+  );
 
   useEffect(() => {
     if (selectedDataset === "none") {
-      dispatch(setTree({ nodes: [], edges: [] }));
+      // dispatch(setTree({ nodes: [], edges: [] }));
+      onLayout({ nodes, edges });
       return;
     }
-
-    api.FAMILY_TREE.apiFamilyTreeGetFamilyTreeGet(selectedDataset).then((p) => {
-      const originalNodes = p.data.nodes.map((x) => {
-        return {
-          ...x,
-          gender: x.data.gender as Gender,
-          position: { x: 0, y: 0 },
-          type: "familyNode",
-        } as FamilyTreeNode;
-      });
-      const originalEdges = p.data.edges;
-      let tree: {
-        nodes: (FamilyTreeNode | RelationShipNode)[];
-        edges: Edge[];
-      } = {
-        nodes: [...originalNodes],
-        edges: [...originalEdges],
-      };
-
-      for (const node of originalNodes) {
-        console.log("edges", originalNodes);
-        console.log("node", node);
-        const parents = originalEdges.filter((p) => p.target === node.id);
-        let id = "";
-        if (parents.length > 0) {
-          id = parents[0].id;
-          if (parent.length === 2) id = id + parents[1].id;
-          if (!tree.nodes.some((p) => p.id === id + "R")) {
-            tree.nodes.push({
-              id: id + "R",
-              ...relationNode,
-            } as RelationShipNode);
-          }
-          tree.edges.push({
-            id: node.id + +"-" + id + "R",
-            source: id + "R",
-            target: node.id,
-          });
-        }
-        console.log("parents", parents);
-        for (const edge of parents) {
-          if (!tree.edges.some((p) => p.id === edge.id + "R")) {
-            tree.edges.push({
-              id: edge.id + "R",
-              source: edge.source,
-              target: id + "R",
-            });
-          }
-        }
-      }
+    getFlowTree(selectedDataset).then((tree) => {
       onLayout(tree);
     });
   }, [selectedDataset]);
 
   const onLayout = useCallback(
     (tree: { nodes: (FamilyTreeNode | RelationShipNode)[]; edges: Edge[] }) => {
-      console.log("here");
-      const currentNodes = tree.nodes;
-      const currentEdges = tree.edges;
-
-      getLayoutedElements(currentNodes, currentEdges, elkOptions).then(
-        ({ nodes, edges }) => {
-          console.log("nodess", nodes);
-          console.log("edges", edges);
-          dispatch(setTree({ nodes, edges }));
-        }
-      );
+      dispatch(setTree(tree));
     },
     [] // <- empty dependency array
   );
@@ -143,7 +86,9 @@ export default function Canvas() {
               id="countries"
               className="select  select-md"
               value={selectedDataset}
-              onChange={(event) => setSelectedDataset(event.target.value)}
+              onChange={(event) =>
+                dispatch(setSelectedDataset(event.target.value))
+              }
             >
               <option value="none">Choose a dataset</option>
               {!datasetList.isLoading &&

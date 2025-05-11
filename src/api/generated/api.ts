@@ -58,6 +58,12 @@ export interface CreatePersonDto {
      * @type {string}
      * @memberof CreatePersonDto
      */
+    'family': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreatePersonDto
+     */
     'birthPlace'?: string | null;
     /**
      * 
@@ -71,12 +77,6 @@ export interface CreatePersonDto {
      * @memberof CreatePersonDto
      */
     'dataset'?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof CreatePersonDto
-     */
-    'family'?: string | null;
 }
 /**
  * 
@@ -113,6 +113,12 @@ export interface CreatePersonWithRelationDto {
      * @type {string}
      * @memberof CreatePersonWithRelationDto
      */
+    'family': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreatePersonWithRelationDto
+     */
     'birthPlace'?: string | null;
     /**
      * 
@@ -126,12 +132,6 @@ export interface CreatePersonWithRelationDto {
      * @memberof CreatePersonWithRelationDto
      */
     'dataset'?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof CreatePersonWithRelationDto
-     */
-    'family'?: string | null;
     /**
      * 
      * @type {Array<number>}
@@ -270,10 +270,10 @@ export interface PersonViewDto {
     'deathPlace'?: string | null;
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof PersonViewDto
      */
-    'id'?: number;
+    'id'?: string | null;
     /**
      * 
      * @type {string}
@@ -646,8 +646,8 @@ export const PersonApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiPersonDeletePersonPersonIdIntDelete: async (personId?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/Person/DeletePerson/personId:int`;
+        apiPersonDeletePersonPersonIdLongDelete: async (personId?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/Person/DeletePerson/personId:long`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -680,8 +680,8 @@ export const PersonApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiPersonGetPersonPersonIdIntGet: async (personId?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/Person/GetPerson/personId:int`;
+        apiPersonGetPersonPersonIdLongGet: async (personId?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/Person/GetPerson/personId:long`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -715,8 +715,8 @@ export const PersonApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiPersonUpdatePersonPersonIdIntPut: async (personId?: number, updatePersonDto?: UpdatePersonDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/Person/UpdatePerson/personId:int`;
+        apiPersonUpdatePersonPersonIdLongPut: async (personId?: number, updatePersonDto?: UpdatePersonDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/Person/UpdatePerson/personId:long`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -842,10 +842,10 @@ export const PersonApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiPersonDeletePersonPersonIdIntDelete(personId?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.apiPersonDeletePersonPersonIdIntDelete(personId, options);
+        async apiPersonDeletePersonPersonIdLongDelete(personId?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiPersonDeletePersonPersonIdLongDelete(personId, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['PersonApi.apiPersonDeletePersonPersonIdIntDelete']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['PersonApi.apiPersonDeletePersonPersonIdLongDelete']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -854,10 +854,10 @@ export const PersonApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiPersonGetPersonPersonIdIntGet(personId?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PersonViewDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.apiPersonGetPersonPersonIdIntGet(personId, options);
+        async apiPersonGetPersonPersonIdLongGet(personId?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PersonViewDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiPersonGetPersonPersonIdLongGet(personId, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['PersonApi.apiPersonGetPersonPersonIdIntGet']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['PersonApi.apiPersonGetPersonPersonIdLongGet']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -867,10 +867,10 @@ export const PersonApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiPersonUpdatePersonPersonIdIntPut(personId?: number, updatePersonDto?: UpdatePersonDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.apiPersonUpdatePersonPersonIdIntPut(personId, updatePersonDto, options);
+        async apiPersonUpdatePersonPersonIdLongPut(personId?: number, updatePersonDto?: UpdatePersonDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiPersonUpdatePersonPersonIdLongPut(personId, updatePersonDto, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['PersonApi.apiPersonUpdatePersonPersonIdIntPut']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['PersonApi.apiPersonUpdatePersonPersonIdLongPut']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -931,8 +931,8 @@ export const PersonApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiPersonDeletePersonPersonIdIntDelete(personId?: number, options?: RawAxiosRequestConfig): AxiosPromise<void> {
-            return localVarFp.apiPersonDeletePersonPersonIdIntDelete(personId, options).then((request) => request(axios, basePath));
+        apiPersonDeletePersonPersonIdLongDelete(personId?: number, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.apiPersonDeletePersonPersonIdLongDelete(personId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -940,8 +940,8 @@ export const PersonApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiPersonGetPersonPersonIdIntGet(personId?: number, options?: RawAxiosRequestConfig): AxiosPromise<PersonViewDto> {
-            return localVarFp.apiPersonGetPersonPersonIdIntGet(personId, options).then((request) => request(axios, basePath));
+        apiPersonGetPersonPersonIdLongGet(personId?: number, options?: RawAxiosRequestConfig): AxiosPromise<PersonViewDto> {
+            return localVarFp.apiPersonGetPersonPersonIdLongGet(personId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -950,8 +950,8 @@ export const PersonApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiPersonUpdatePersonPersonIdIntPut(personId?: number, updatePersonDto?: UpdatePersonDto, options?: RawAxiosRequestConfig): AxiosPromise<void> {
-            return localVarFp.apiPersonUpdatePersonPersonIdIntPut(personId, updatePersonDto, options).then((request) => request(axios, basePath));
+        apiPersonUpdatePersonPersonIdLongPut(personId?: number, updatePersonDto?: UpdatePersonDto, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.apiPersonUpdatePersonPersonIdLongPut(personId, updatePersonDto, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -1015,8 +1015,8 @@ export class PersonApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof PersonApi
      */
-    public apiPersonDeletePersonPersonIdIntDelete(personId?: number, options?: RawAxiosRequestConfig) {
-        return PersonApiFp(this.configuration).apiPersonDeletePersonPersonIdIntDelete(personId, options).then((request) => request(this.axios, this.basePath));
+    public apiPersonDeletePersonPersonIdLongDelete(personId?: number, options?: RawAxiosRequestConfig) {
+        return PersonApiFp(this.configuration).apiPersonDeletePersonPersonIdLongDelete(personId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -1026,8 +1026,8 @@ export class PersonApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof PersonApi
      */
-    public apiPersonGetPersonPersonIdIntGet(personId?: number, options?: RawAxiosRequestConfig) {
-        return PersonApiFp(this.configuration).apiPersonGetPersonPersonIdIntGet(personId, options).then((request) => request(this.axios, this.basePath));
+    public apiPersonGetPersonPersonIdLongGet(personId?: number, options?: RawAxiosRequestConfig) {
+        return PersonApiFp(this.configuration).apiPersonGetPersonPersonIdLongGet(personId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -1038,8 +1038,8 @@ export class PersonApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof PersonApi
      */
-    public apiPersonUpdatePersonPersonIdIntPut(personId?: number, updatePersonDto?: UpdatePersonDto, options?: RawAxiosRequestConfig) {
-        return PersonApiFp(this.configuration).apiPersonUpdatePersonPersonIdIntPut(personId, updatePersonDto, options).then((request) => request(this.axios, this.basePath));
+    public apiPersonUpdatePersonPersonIdLongPut(personId?: number, updatePersonDto?: UpdatePersonDto, options?: RawAxiosRequestConfig) {
+        return PersonApiFp(this.configuration).apiPersonUpdatePersonPersonIdLongPut(personId, updatePersonDto, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

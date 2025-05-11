@@ -9,7 +9,7 @@ type TreeState = {
   edges: Edge[];
 };
 
-const strokeStyle = {
+export const strokeStyle = {
   strokeWidth: 5,
 };
 
@@ -396,11 +396,6 @@ export const breakingBadDataset: {
   ] as Edge[],
 };
 
-const initialState: TreeState = {
-  nodes: [],
-  edges: [],
-};
-
 export const potterDataset: {
   nodes: (FamilyTreeNode | RelationShipNode)[];
   edges: Edge[];
@@ -718,7 +713,10 @@ export const potterDataset: {
     },
   ],
 };
-
+const initialState: TreeState = {
+  nodes: potterDataset.nodes,
+  edges: potterDataset.edges,
+};
 const getAncestry = (id: string, edges: Edge[]): string[] => {
   let ancestry: string[] = [id];
   function getAncestryRecursive(id: string) {
@@ -743,7 +741,6 @@ const treeSlice = createSlice({
       state,
       action: PayloadAction<(FamilyTreeNode | RelationShipNode)[]>
     ) {
-      console.log("inSetNodes", action);
       state.nodes = action.payload;
     },
     setEgdes(state, action: PayloadAction<Edge[]>) {
@@ -759,6 +756,7 @@ const treeSlice = createSlice({
       state.nodes = action.payload.nodes;
       state.edges = action.payload.edges;
     },
+
     highlightAncestors(state, action: PayloadAction<string | undefined>) {
       if (!action.payload) {
         for (let node of state.nodes) {
